@@ -1,0 +1,16 @@
+.background {
+  padding: 0;
+  margin: 0;
+  background-image: url("../img/degrade.jpg");
+}
+
+.opa {
+    padding-top: 3%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.top{
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
