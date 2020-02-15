@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gincana</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../public/css/bg.css">
+</head>
+<body class="background text-light">
+
+<nav class=" navbar navbar-expand-sm fixed-top navbar-dark top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><a href="./index.html"><button class="btn btn-success ml-3">Painel Principal</button></a></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav m-auto">
+            <li class="nav-item" data-component="Products" style="cursor: pointer;">
+                <span class="nav-link"><img src="../public/img/gincana-logo-png-2-svg.svg" alt="logo" width="130">
+                    <img src="../public/img/Sem título131.svg" alt="logoatos" width="130">
+                </span>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div id="app">   
+</div>
+
+
+<script src="../renderer.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    const database = require('../renderer')
+    let vermelho = db.get('equipes.Vermelho').value()
+    let azul = db.get('equipes.Azul').value()
+    let amarelo = db.get('equipes.Amarelo').value()
+    let tabela = db.get('tabela').value()
+    const totalpontos = db.get('equipes').value()
+
+    
+
+   
+
+    new Vue({
+        el: '#app',
+        template:
+        `<div class="row q-geral">
+            <div v-if="totals.vermelho > totals.azul" v-else-if="totals.vermelho > totals.amarelo" id="vermelho" class="col text-center bg-danger h-75 ml-2" style="border-radius:8px;">
+                <p>Total de Pontos</p>
+                <p>{{totals.vermelho}}</p>
+                <h1 style="font-size:100px;">Vermelho Winner</h1>
+            </div>
+            <div v-if="totals.azul > totals.vermelho" v-else-if="totals.azul > totals.amarelo" id="azul" class="col bg-primary text-center h-75  mr-2 ml-2" style="border-radius:8px;">
+                <p>Total de Pontos</p>
+                <p>{{totals.azul}}</p>
+                <h1 style="font-size:100px;">Azul Winner</h1>
+            </div>
+            <div v-if="totals.amarelo > totals.azul" v-else-if="totals.amarelo > totals.vermelho" id="amarelo" class="col bg-warning text-center h-75 mr-2" style="border-radius:8px;">
+                <p>Total de Pontos</p>
+                <p>{{totals.amarelo}}</p>
+                <h1 style="font-size:100px;">Amarelo Winner</h1>
+            </div>
+        </div>`,
+        data(){
+            return {
+                totals:{vermelho:vermelho, azul:azul,amarelo:amarelo},
+                condicao:true,
+                tabela,
+                equipe: 'equipe...',
+                descricao:'',
+                pontos:'',
+                dia:'Dia...'
+            }
+            
+        },
+        methods:{
+            addTabela(){
+                if(this.equipe.trim() ==='' || this.pontos.trim() === ''){
+                    return;
+                }
+                this.tabela.unshift({
+                    equipe:this.equipe,
+                    descricao: this.descricao,
+                    pontos: this.pontos,
+                    dia: this.dia
+                }),
+                db.update(`equipes.${this.equipe}`, n => n + Number(this.pontos)).write()
+                this.equipe = 'equipe...'
+                this.descricao =''
+                this.pontos = ''
+                this.dia ='Dia...'
+            },
+            removeItem(index){
+                this.equipe = db.get(`tabela[${index}].equipe`).value()
+                this.pontos = db.get(`tabela[${index}].pontos`).value()
+                db.update(`equipes.${this.equipe}`, n => n - Number(this.pontos)).write()
+                this.tabela.splice(index, 1)
+                db.write()
+                console.log('deletou') 
+                this.equipe = 'equipe...'
+                this.pontos = ''  
+                   
+            },
+            showResults (){
+                let showVermelho = document.getElementById('vermelho')
+                let showAzul = document.getElementById('azul')
+                let showAmarelo = document.getElementById('amarelo')
+                showVermelho.innerHTML = `Total de Pontos:${db.get('equipes.Vermelho').value()}`
+                showAzul.innerHTML = `Total de Pontos:${db.get('equipes.Azul').value()}`
+                showAmarelo.innerHTML = `Total de Pontos:${db.get('equipes.Amarelo').value()}`
+            }
+        },
+        watch: {
+            vermelhoP: ()=> {
+            this.totals.vermelho = vermelho
+            },
+            azulP: ()=>{
+                this.totals.azul = azul
+            },
+            amareloP: ()=>{
+                this.totals.amarelo = amarelo
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>

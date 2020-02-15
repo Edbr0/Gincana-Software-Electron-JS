@@ -14,3 +14,15 @@
     padding: 0;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+.q-geral{
+    display: flex;
+    margin: auto;
+    align-items: center;
+    height: 550px;
+    width: 90%;
+    margin-top: 8%;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
