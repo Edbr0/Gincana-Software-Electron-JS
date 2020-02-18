@@ -1,18 +1,18 @@
 {
-  "name": "electron-quick-start",
+  "name": "gincana-acampatos",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Um app para gerenciar  gincanas",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/Edbr0/Gincana-Software-Electron-JS",
   "keywords": [
     "Electron",
-    "quick",
+    "gincana",
     "start"
   ],
-  "author": "GitHub",
+  "author": "Edbr0",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^8.0.0",
