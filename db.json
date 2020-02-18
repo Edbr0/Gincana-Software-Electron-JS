@@ -1,15 +1,8 @@
 {
   "equipes": {
-    "Vermelho": 20,
+    "Vermelho": 0,
     "Azul": 0,
     "Amarelo": 0
   },
-  "tabela": [
-    {
-      "equipe": "Vermelho",
-      "descricao": "oula",
-      "pontos": "20",
-      "dia": "DOMINGO"
-    }
-  ]
+  "tabela": []
 }
