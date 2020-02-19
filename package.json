@@ -4,8 +4,11 @@
   "description": "Um app para gerenciar  gincanas",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
+  "icon": "./icon.png",
   "repository": "https://github.com/Edbr0/Gincana-Software-Electron-JS",
   "keywords": [
     "Electron",
@@ -20,8 +23,16 @@
     "electron-packager": "^14.2.1",
     "vue-template-compiler": "^2.5.21"
   },
+  "build": {
+    "appId": "Edbr0.id",
+    "mac": {
+      "category": "Gincana.gerenciador.type"
+    }
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dialogs": "^2.0.1",
+    "electron-winstaller": "^4.0.0",
     "express": "^4.17.1",
     "lowdb": "^1.0.0",
     "mysql": "^2.18.1",

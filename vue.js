@@ -1,3 +1,5 @@
+var Dialogs = require('dialogs')
+const dialogs = Dialogs()
 const database = require('../renderer')
 let vermelho = db.get('equipes.Vermelho').value()
 let azul = db.get('equipes.Azul').value()
@@ -19,7 +21,7 @@ new Vue({
             <div class="form-group">
                 <label for="exampleInputEmail1">Quantidade de pontos</label>
                 <input class="form-control form-control-sm" id="pontos" type="number" placeholder="pontos" v-model="pontos">
-                <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
+                <small id="emailHelp" class="form-text text-muted">Insira apenas numeros inteiros!</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Descrição</label>
@@ -97,7 +99,17 @@ new Vue({
     },
     methods:{
         addTabela(){
-            if(this.equipe.trim() ==='' || this.pontos.trim() === ''){
+            if(this.equipe.trim() ==='equipe...' || this.pontos.trim() === '' || this.descricao.trim() === '' || this.dia.trim() === 'Dia...'){
+                dialogs.alert('Por favor prencha todos os campos!', ok => {
+                    console.log('alert', ok)
+                })
+                return;    
+            }
+            if(this.pontos <= 0){
+                // alert(')
+                dialogs.alert('Este valor é inválido!', ok => {
+                    console.log('alert', ok)
+                })
                 return;
             }
             this.tabela.unshift({
@@ -105,7 +117,7 @@ new Vue({
                 descricao: this.descricao,
                 pontos: this.pontos,
                 dia: this.dia
-            }),
+            })
             db.update(`equipes.${this.equipe}`, n => n + Number(this.pontos)).write()
             this.equipe = 'equipe...'
             this.descricao =''
