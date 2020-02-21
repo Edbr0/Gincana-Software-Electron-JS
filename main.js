@@ -11,7 +11,7 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 720,
-    icon:__dirname+'/icon.png',
+    icon:__dirname+'/icon.ico',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true
@@ -48,3 +48,4 @@ app.on('activate', function () {
 app.on('browser-window-created',function(e,window) {
   window.setMenu(null);
 });
+
