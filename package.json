@@ -18,7 +18,7 @@
   "author": "Edbr0",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^8.0.0",
+    "electron": "^8.5.2",
     "electron-builder": "^22.3.2",
     "electron-packager": "^14.2.1",
     "vue-template-compiler": "^2.5.21"
