@@ -1,8 +1,21 @@
 {
   "equipes": {
-    "Vermelho": 0,
-    "Azul": 0,
+    "Vermelho": 10,
+    "Azul": 15,
     "Amarelo": 0
   },
-  "tabela": []
+  "tabela": [
+    {
+      "equipe": "Azul",
+      "descricao": "Danca das cadeiras",
+      "pontos": "15",
+      "dia": "DOMINGO"
+    },
+    {
+      "equipe": "Vermelho",
+      "descricao": "Prova das cadeiras",
+      "pontos": "10",
+      "dia": "DOMINGO"
+    }
+  ]
 }

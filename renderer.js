@@ -198,12 +198,16 @@ new Vue({
             let amarelo = db.get('equipes.Amarelo').value()
             if(vermelho > azul && vermelho > amarelo){
                 this.ganhador = 'vermelho'
+                this.totals.vermelho = vermelho
             }
             else if(azul > vermelho && azul > amarelo){
                 this.ganhador = 'azul'
-            }
-            else if(amarelo > vermelho && amarelo > azul){
+                this.totals.azul = azul
+
+            } else if(amarelo > vermelho && amarelo > azul){
                 this.ganhador = 'amarelo'
+                this.totals.amarelo = amarelo
+
             } else {
                 this.ganhador = 'empate'
             }
